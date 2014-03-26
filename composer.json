@@ -1,0 +1,7 @@
+{
+    "require": {
+        "gabordemooij/redbean": "dev-master",
+	"symfony/dom-crawler": "2.4.*@dev",
+        "symfony/css-selector": "*"
+    }
+}
