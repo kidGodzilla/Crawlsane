@@ -16,11 +16,16 @@ class Configuration {
     private $cookiejar;
 
     /**
+     * Respect or ignore robots.txt
+     */
+     private $respectful = true;
+
+    /**
      * Determines whether or not requests should follow redirects
      *
      * @var boolean
     **/
-    private $follow_redirects = true;
+    private $followRedirects = true;
 
     /**
      * An associative array of headers to send along with requests
@@ -48,20 +53,47 @@ class Configuration {
      *
      * @var string
     **/
-    private $user_agent;
+    private $userAgent;
 
     /**
      * Initializes the class
      *
      **/
-    function __construct ($configuration) {
+    public function __construct () {
+        $this->cookie_file = dirname (__FILE__) .
+            DIRECTORY_SEPARATOR . 'cookiejar';
 
-        foreach ($configuration as $key => $value)
-            print 'This is config.';
+        $this->user_agent = 'Mozilla/5.0 (compatible; Crawlsane/1.0;' .
+            '+http://github.com/michaelmcmillan/Crawlsane)';
+    }
 
+    /**
+     * Sets the userAgent
+     *
+     * @var string
+     */
+    public function setUserAgent ($userAgent) {
+        $this->userAgent = $userAgent;
+    }
 
-        $this->cookie_file = dirname(__FILE__) .
-        DIRECTORY_SEPARATOR . 'cookiejar' .DIRECTORY_SEPARATOR. 'curl_cookie.txt';
-        $this->user_agent = false;
+    /**
+     * Sets the referer
+     *
+     * @var string
+     */
+    public function setReferer ($referer) {
+        $this->referer = $referer;
+    }
+
+    /**
+     * Sets the cookiejar (directory) path
+     *
+     * @var string
+     */
+    public function setCookiejar ($cookiejar) {
+        if (is_writable ($cookiejar))
+            $this->cookiejar = $cookiejar;
+        else
+            throw new Exception ('Cookiejar is not writable.');
     }
 }
