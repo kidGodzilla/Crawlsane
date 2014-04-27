@@ -28,18 +28,25 @@ class Configuration {
     private $followRedirects = true;
 
     /**
+     * Milliseconds to wait on response
+     *
+     * @var int
+    **/
+    private $timeout = 100000;
+
+    /**
+     * Milliseconds to wait on response
+     *
+     * @var int
+    **/
+    private $connectTimeout = 100000;
+
+    /**
      * An associative array of headers to send along with requests
      *
      * @var array
     **/
-    private $headers = array();
-
-    /**
-     * An associative array of CURLOPT options to send along with requests
-     *
-     * @var array
-    **/
-    private $options = array();
+    private $headers = array ();
 
     /**
      * The referer header to send along with requests
@@ -63,7 +70,8 @@ class Configuration {
         $this->cookie_file = dirname (__FILE__) .
             DIRECTORY_SEPARATOR . 'cookiejar';
 
-        $this->user_agent = 'Mozilla/5.0 (compatible; Crawlsane/1.0;' .
+        $this->user_agent =
+            'Mozilla/5.0 (compatible; Crawlsane/1.0;' .
             '+http://github.com/michaelmcmillan/Crawlsane)';
     }
 
@@ -96,4 +104,63 @@ class Configuration {
         else
             throw new Exception ('Cookiejar is not writable.');
     }
+
+    /**
+     * Sets the headers (array)
+     *
+     * @var mixed
+     */
+     public function setHeaders ($headers) {
+         if (is_array ($headers))
+             $this->headers = $headers;
+         else
+             throw new Exception ('Headers must be an array.');
+     }
+
+     /**
+      * Get the headers
+      *
+      */
+      public function getHeaders () {
+          return $this->headers;
+      }
+
+      /**
+       * Get the maxRedirects
+       *
+       */
+       public function getMaxRedirects () {
+           return $this->maxRedirects;
+       }
+
+      /**
+       * Get the userAgent
+       *
+       */
+       public function getUserAgent () {
+           return $this->userAgent;
+       }
+
+       /**
+        * Get the followRedirect
+        */
+        public function getFollowRedirects () {
+            return $this->followRedirects;
+        }
+
+       /**
+        * Get the timeout (ms)
+        */
+        public function getTimeout () {
+
+            return $this->timeout;
+
+        }
+
+       /**
+        * Get the connect_timeout (ms)
+        */
+        public function getConnectTimeout () {
+            return $this->connectTimeout;
+        }
 }
