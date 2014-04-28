@@ -23,7 +23,7 @@ $configuration->setCookiejar('cookiejar');
 /**
  * Resource
  */
-$resource = new Resource ('http://studjobb.no');
+$resource = new Resource ('http://www.lynda.com/Arduino-tutorials/Up-Running-Arduino/162273-2.html');
 
 /**
  * Crawler
@@ -37,4 +37,4 @@ $crawlsane->request();
 $crawlsane->parse();
 
 // Return thumbnail candidates
-$crawlsane->thumbnails();
+$crawlsane->opengraph();

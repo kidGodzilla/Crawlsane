@@ -84,9 +84,7 @@ class Crawlsane {
      */
      public function opengraph () {
 
-        // If meta-tags was found
-        if ($this->doc->getElementsByTagName('meta'))
-            $this->opengraph = new Opengraph ();
+        $this->opengraph = new Opengraph ($this->dom);
 
      }
 
