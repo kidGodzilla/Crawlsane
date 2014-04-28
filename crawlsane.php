@@ -76,6 +76,7 @@ class Crawlsane {
 
     /**
      * Finds appropriate thumbnails
+     * @todo this was written in a drunk state, review l8r
      */
      public function thumbnails () {
 
