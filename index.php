@@ -7,6 +7,7 @@ $classes = array (
     'vendor/autoload.php',
     'configuration.php',
     'crawlsane.php',
+    'opengraph.php',
     'resource.php'
 );
 

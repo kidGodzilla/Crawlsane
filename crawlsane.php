@@ -2,7 +2,6 @@
 
 class Crawlsane {
 
-
     /**
      * Holds the resource object
      */
@@ -22,6 +21,11 @@ class Crawlsane {
      * Holds the Document Object Model (DOM)
      */
      private $dom;
+
+    /**
+     * Holds the Opengraph intrepretation
+     */
+     private $opengraph;
 
 
     /**
@@ -71,8 +75,21 @@ class Crawlsane {
          libxml_use_internal_errors (true);
 
          // Only pass to DOM if request body was obtained
-         if ($this->body) $this->dom->loadHTML($this->body);
+         if ($this->body)
+             $this->dom->loadHTML($this->body);
      }
+
+    /**
+     * Tries to generate an OpenGraph object
+     */
+     public function opengraph () {
+
+        // If meta-tags was found
+        if ($this->doc->getElementsByTagName('meta'))
+            $this->opengraph = new Opengraph ();
+
+     }
+
 
     /**
      * Finds appropriate thumbnails
@@ -80,18 +97,22 @@ class Crawlsane {
      */
      public function thumbnails () {
 
+
+         // Try to find Opengraph-tags
+
+         /*
          // Collect all img-tags
          $images = $this->dom->getElementsByTagName('img');
 
-         // Iterate each tag and echo absolute url
+         // Replace relative urls with absolute ones
          foreach ($images as $image)
-             print url_to_absolute (
-                 $this->resource->getLocation(),
-                 $image->getAttribute('src')
+             $image->setAttribute('src',
+                 url_to_absolute (
+                     $this->resource->getLocation(),
+                     $image->getAttribute('src')
+                 )
              );
-
-
-
+         */
      }
 
 }
