@@ -1,8 +1,8 @@
 Crawlsane
 ================
 
-Crawlsane is a project aimed at crawling external resources, in particular Massive
-Open Online Courses (MOOCs). There is however nothing preventing Crawlsane
-to be extended and modified to be used elsewhere.
+Crawlsane is a project aimed at crawling external resources to retrieve general
+meta-information and thumbnails.
 
- It heavily takes use of Ryan McCue's brilliant Requests library.
+This project is developed mainly with MOOC's and online courses in mind. There is
+however nothing preventing Crawlsane to be extended and modified to be used elsewhere.

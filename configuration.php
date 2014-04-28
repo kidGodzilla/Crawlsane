@@ -28,6 +28,12 @@ class Configuration {
     private $followRedirects = true;
 
     /**
+     * The max amount of allowed redirects
+     * @var int
+     */
+    private $maxRedirects = 5;
+
+    /**
      * Milliseconds to wait on response
      *
      * @var int
