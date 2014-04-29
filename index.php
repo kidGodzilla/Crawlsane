@@ -23,7 +23,7 @@ $configuration->setCookiejar('cookiejar');
 /**
  * Resource
  */
-$resource = new Resource ('http://www.lynda.com/Arduino-tutorials/Up-Running-Arduino/162273-2.html');
+$resource = new Resource ('https://www.youtube.com/watch?v=9DZXOANUaNk');
 
 /**
  * Crawler

@@ -25,7 +25,7 @@ class Crawlsane {
     /**
      * Holds the Opengraph intrepretation
      */
-     private $opengraph;
+     public $opengraph;
 
 
     /**
@@ -85,6 +85,8 @@ class Crawlsane {
      public function opengraph () {
 
         $this->opengraph = new Opengraph ($this->dom);
+
+        print_r($this->opengraph);
 
      }
 

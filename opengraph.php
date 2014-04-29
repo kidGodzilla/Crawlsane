@@ -8,67 +8,53 @@ class Opengraph {
      private $dom;
 
     /**
-     * og:type
+     * The Opengraph fields
      */
-     private $type;
-
-    /**
-     * og:title
-     */
-     private $title;
-
-    /**
-     * og:description
-     */
-     private $description;
-
-    /**
-     * og:image
-     */
-     private $image;
+     private $fields;
 
     /**
      * Valid og:type(s)
      */
      private $validTypes = array (
-         'activity' => array(
+         'activity' => array (
              'activity', 'sport'
          ),
 
-         'business' => array(
+         'business' => array (
              'bar', 'company', 'cafe',
              'hotel', 'restaurant'
          ),
 
-         'group' => array(
-             'cause', 'sports_league',
+         'group' => array (
+              'cause', 'sports_league',
               'sports_team'
           ),
 
-         'organization' => array(
+         'organization' => array (
              'band', 'government',
              'non_profit', 'school',
              'university'
          ),
 
-         'person' => array(
+         'person' => array (
              'actor', 'athlete', 'author',
              'director', 'musician',
              'politician', 'public_figure'
          ),
 
-         'place' => array(
+         'place' => array (
              'city', 'country', 'landmark',
              'state_province'
          ),
 
-         'product' => array(
+         'product' => array (
              'album', 'book', 'drink',
              'food', 'game', 'movie',
-             'product', 'song', 'tv_show'
+             'product', 'song', 'tv_show',
+             'video'
          ),
 
-         'website' => array(
+         'website' => array (
              'blog', 'website'
          )
      );
@@ -81,14 +67,14 @@ class Opengraph {
          // Store the dom internally
          $this->dom = $dom;
 
-         // Parse the dom
-         $this->parse();
+         // Traverse the dom
+         $this->build();
      }
 
      /**
-      * Parses the internal dom
+      * Builds the opengraph object
       */
-     private function parse () {
+     private function build () {
 
          // Look for meta tags
          $metatags = $this->dom->getElementsByTagName('meta');
@@ -104,6 +90,32 @@ class Opengraph {
              if ($metatag->hasAttribute('property')
              &&  substr($metatag->getAttribute('property'), 0, 3) == 'og:') {
 
+                /**
+                 * protocol __
+                 *            |
+                 *            og:video:type
+                 * field __________|     |
+                 * key___________________|
+                 */
+
+                 // Find the field (outermost array key)
+                 $field = explode (':', $metatag->getAttribute('property'))[1];
+
+                 // Append value to each field
+                 $keys = array_splice (explode (':',
+                     $metatag->getAttribute('property')), 2);
+
+                 // Store as an associative array
+                 // If keys are present
+                 if (empty($keys) == false)
+                     foreach ($keys as $key)
+                         $this->field[$field][$key] =
+                         $metatag->getAttribute('content');
+
+                 // Store as field => value pair
+                 else
+                     $this->field[$field][] =
+                     $metatag->getAttribute('content');
              }
      }
 
@@ -111,31 +123,31 @@ class Opengraph {
      * Sets og:type
      */
      private function setType ($type) {
-         // @todo check for valid type
-         //if (i)
-         $this->type = $type;
+
+         // Validate the og:type
+         foreach ($this->validTypes as $validType)
+             if (in_array ($type, $validType))
+                 $this->type = $type;
      }
 
-    /**
-     * Sets og:title
-     */
-     private function setTitle ($title) {
-         $this->title = $title;
-     }
+   /**
+    * Sets an og:field[:key] value
+    */
+    private function setField ($field, $key = false, $value) {
+        if ($key)
+            $this->fields[$field][$key] = $value;
+        else
+            $this->fields[$field][] = $value;
+    }
 
-    /**
-     * Sets og:title
-     */
-     private function setDescription ($description) {
-         $this->description = $description;
-     }
-
-    /**
-     * Sets og:title
-     */
-     private function setImage ($image) {
-         $this->image = $image;
-     }
-
+   /**
+    * Gets an og:field[:key] value
+    */
+    private function getField ($field, $key = false) {
+        if ($key)
+            return $this->fields[$field][$key];
+        else
+            return $this->fields[$field];
+    }
 
 }
