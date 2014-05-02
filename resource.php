@@ -1,42 +1,18 @@
 <?php
-/**
- * Class Resource
- *
- * - An external resource
- */
-class Resource {
 
-    /**
-     * Location of the resource (http/https)
-     *
-     * @var string
-     */
-    private $location;
+abstract class Resource {
 
-    /**
-     * Initializes the class
-     */
-     public function __construct ($location) {
-         if ($this->validLocation ($location))
-             $this->location = $location;
-         else
-             throw new Exception ('Invalid location: http(s)');
-     }
 
-    /**
-     * Validates the location
-     *
-     * @var string
-     */
-     private function validLocation ($location) {
-         return filter_var($location, FILTER_VALIDATE_URL);
-     }
+    private $title;
 
-     /**
-      * Returns the location
-      */
-      public function getLocation () {
-          return $this->location;
-      }
+    private $type;
+
+    private $description;
+
+    private $fields;
+
+    public function thumbnails () {
+        print 'lol';
+    }
 
 }

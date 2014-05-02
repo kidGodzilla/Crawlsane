@@ -1,6 +1,6 @@
 <?php
 
-class Opengraph {
+class Opengraph extends Resource {
 
     /**
      * Document object model
@@ -12,53 +12,6 @@ class Opengraph {
      */
      private $fields;
 
-    /**
-     * Valid og:type(s)
-     */
-     private $validTypes = array (
-         'activity' => array (
-             'activity', 'sport'
-         ),
-
-         'business' => array (
-             'bar', 'company', 'cafe',
-             'hotel', 'restaurant'
-         ),
-
-         'group' => array (
-              'cause', 'sports_league',
-              'sports_team'
-          ),
-
-         'organization' => array (
-             'band', 'government',
-             'non_profit', 'school',
-             'university'
-         ),
-
-         'person' => array (
-             'actor', 'athlete', 'author',
-             'director', 'musician',
-             'politician', 'public_figure'
-         ),
-
-         'place' => array (
-             'city', 'country', 'landmark',
-             'state_province'
-         ),
-
-         'product' => array (
-             'album', 'book', 'drink',
-             'food', 'game', 'movie',
-             'product', 'song', 'tv_show',
-             'video'
-         ),
-
-         'website' => array (
-             'blog', 'website'
-         )
-     );
-
      /**
       * Initialize the Opengraph object
       */
@@ -69,6 +22,8 @@ class Opengraph {
 
          // Traverse the dom
          $this->build();
+
+         
      }
 
      /**
@@ -95,7 +50,7 @@ class Opengraph {
                  *            |
                  *            og:video:type
                  * field __________|     |
-                 * key___________________|
+                 * key __________________|
                  */
 
                  // Find the field (outermost array key)
@@ -114,7 +69,7 @@ class Opengraph {
 
                  // Store as field => value pair
                  else
-                     $this->field[$field][] =
+                     $this->field[$field]['value'] =
                      $metatag->getAttribute('content');
              }
      }
@@ -125,29 +80,29 @@ class Opengraph {
      private function setType ($type) {
 
          // Validate the og:type
-         foreach ($this->validTypes as $validType)
-             if (in_array ($type, $validType))
+         //foreach ($this->validTypes as $validType)
+             //if (in_array ($type, $validType))
                  $this->type = $type;
-     }
+    }
 
    /**
     * Sets an og:field[:key] value
     */
-    private function setField ($field, $key = false, $value) {
+    public function setField ($field, $key = false, $value) {
         if ($key)
             $this->fields[$field][$key] = $value;
         else
-            $this->fields[$field][] = $value;
+            $this->fields[$field]['value'] = $value;
     }
 
    /**
     * Gets an og:field[:key] value
     */
-    private function getField ($field, $key = false) {
+    public function getField ($field, $key = false) {
         if ($key)
             return $this->fields[$field][$key];
         else
-            return $this->fields[$field];
+            return $this->fields[$field]['value'];
     }
 
 }

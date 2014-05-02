@@ -7,8 +7,9 @@ $classes = array (
     'vendor/autoload.php',
     'configuration.php',
     'crawlsane.php',
-    'opengraph.php',
-    'resource.php'
+    'location.php',
+    'resource.php',
+    'opengraph.php'
 );
 
 foreach ($classes as $class)
@@ -21,14 +22,15 @@ $configuration = new Configuration ();
 $configuration->setCookiejar('cookiejar');
 
 /**
- * Resource
+ * Location
  */
-$resource = new Resource ('https://www.youtube.com/watch?v=9DZXOANUaNk');
+$location = new Location ('https://www.youtube.com/watch?v=9DZXOANUaNk');
 
 /**
  * Crawler
  */
-$crawlsane = new Crawlsane ($resource, $configuration);
+$crawlsane = new Crawlsane ($location, $configuration);
+
 
 // Execute the request
 $crawlsane->request();
