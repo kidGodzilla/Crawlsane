@@ -3,8 +3,48 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "84f643716a80b56869a80885549d8758",
+    "hash": "986e5f7cd205fc01c3718eb006555b8b",
     "packages": [
+        {
+            "name": "facebook/webdriver",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facebook/php-webdriver.git",
+                "reference": "73e204a8dcacf202a1d86f3dcbcf33425758356c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/73e204a8dcacf202a1d86f3dcbcf33425758356c",
+                "reference": "73e204a8dcacf202a1d86f3dcbcf33425758356c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.19"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "A php client for WebDriver",
+            "homepage": "https://github.com/facebook/php-webdriver",
+            "keywords": [
+                "facebook",
+                "php",
+                "selenium",
+                "webdriver"
+            ],
+            "time": "2014-05-01 21:59:55"
+        },
         {
             "name": "gabordemooij/redbean",
             "version": "dev-master",
@@ -106,7 +146,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "gabordemooij/redbean": 20
+        "gabordemooij/redbean": 20,
+        "facebook/webdriver": 20
     },
     "platform": [
 

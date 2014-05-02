@@ -8,7 +8,6 @@ extension.
 This project is mainly developed for a start-up that crawls [MOOC]'s and tutorials
 from any website.
 
-
 ## Usage
 The Crawlsane-object requires two arguments. The first of which is the location
 of the resource you want to retrieve metadata. Secondly it takes a configuration
@@ -22,20 +21,32 @@ $crawlsane = new Crawlsane ($location, $configuration);
 ```
 
 ## How does it work?
-Crawlsane first tries to create an [Opengraph] object according to the OGP
-protocol. If that fails it tries to apply an algorithm to find thumbnails
-and metadata that can represent the resource.
+The algorithm behind Crawlsane uses different techniques to obtain the most
+accurate metadata and thumbnails for a resource. Essentially Crawlsane executes
+the following steps.
 
-## The algorithm
-To find the most appropriate thumbnail to represent the resource it looks for the
-images with the biggest ratio (height/width) that is closest to a chunk of text.
+### Metadata
+1. Creates an [Opengraph] object according to the OGP
+   protocol.
+2. If the Opengraph object lacks metadata or is not present at all, it traverses
+   the DOM looking for elements that can supply more metadata.
 
-### Inspiration
+### Thumbnail(s)
+1. Traverse the DOM for all images.
+2. Apply heuristics to find images closest to the top of the visual DOM.
+    1. Try to find width & height attributes on each element.
+    2. If that fails run a partial image downloading technique ([Fastimage]):
+       open a socket to download the images. Kill the socket as soon as the actual
+       dimension are obtained.
+3. Apply a ratio threshold of 3.0 on the images to filter out unwanted banners and
+   logos.
+4. Look for embedded content and apply the oEmbed specification on it to substitute
+   the thumbnail.
+
+## References
 * [Reddit's scraper.py]:
-
 * [Facebook's crawler]:
-
-
+* [How to Find the Image That Best Represents a Web Page] by Zachary Broderick
 
 ## Libraries
 * The code features an implementation of the Opengraph protocol developed by Facebook.
@@ -46,6 +57,8 @@ images with the biggest ratio (height/width) that is closest to a chunk of text.
 [DomDocument]: http://www.php.net/manual/en/class.domdocument.php
 [Opengraph]: http://ogp.me
 [MOOC]: http://en.wikipedia.org/wiki/Massive_open_online_course
+[Fastimage]: https://github.com/tommoor/fastimage
 
+[How to Find the Image That Best Represents a Web Page]: https://tech.shareaholic.com/2012/11/02/how-to-find-the-image-that-best-respresents-a-web-page/
 [Reddit's scraper.py]: https://github.com/reddit/reddit/blob/a6a4da72a1a0f44e0174b2ad0a865b9f68d3c1cd/r2/r2/lib/scraper.py#L192-L235
 [Facebook's crawler]:

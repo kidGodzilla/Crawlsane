@@ -1,6 +1,7 @@
 {
     "require": {
         "gabordemooij/redbean": "dev-master",
-   	    "rmccue/requests": ">=1.0"
+   	 "rmccue/requests": ">=1.0",
+        "facebook/webdriver": "dev-master"
    }
 }

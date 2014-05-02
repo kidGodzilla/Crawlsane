@@ -3,6 +3,7 @@
  * Require classes
  */
 $classes = array (
+    'vendor/tommoor/Fastimage.php',
     'vendor/absoluteUrl/url_to_absolute.php',
     'vendor/autoload.php',
     'configuration.php',
